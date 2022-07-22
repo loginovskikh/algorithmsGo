@@ -14,7 +14,7 @@ func (t *Timer) Start() {
 	t.startTime = uint(time.Now().UnixNano())
 }
 
-func (t *Timer) End() {
+func (t *Timer) Stop() {
 	t.endTime = uint(time.Now().UnixNano())
 }
 
