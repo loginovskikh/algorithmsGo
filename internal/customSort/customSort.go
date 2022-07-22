@@ -54,3 +54,26 @@ func Shaker(slice []int) ([]int, int) {
 
 	return localSlice, iterations
 }
+
+func Insertion(slice []int) ([]int, int) {
+	var iterations = 0
+	var localSlice = make([]int, len(slice))
+	copy(localSlice, slice)
+
+	length := len(localSlice)
+
+	for i := 0; i < length; i++ {
+		minIndex := i
+		for j := i; j < length; j++ {
+			if localSlice[j] < localSlice[minIndex] {
+				minIndex = j
+			}
+			iterations++
+		}
+		if localSlice[i] != localSlice[minIndex] {
+			localSlice[i], localSlice[minIndex] = localSlice[minIndex], localSlice[i]
+		}
+	}
+
+	return localSlice, iterations
+}
