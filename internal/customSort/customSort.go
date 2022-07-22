@@ -2,13 +2,15 @@ package customSort
 
 func Bubble(slice []int) ([]int, int) {
 	var iterations = 0
+	var localSlice = make([]int, len(slice))
+	copy(localSlice, slice)
 
-	length := len(slice)
+	length := len(localSlice)
 	for i := 0; i < length; i++ {
 		wasSwapped := false
 		for j := 0; j < length-1-i; j++ {
-			if slice[j] > slice[j+1] {
-				slice[j], slice[j+1] = slice[j+1], slice[j]
+			if localSlice[j] > localSlice[j+1] {
+				localSlice[j], localSlice[j+1] = localSlice[j+1], localSlice[j]
 				wasSwapped = true
 			}
 			iterations++
@@ -18,5 +20,37 @@ func Bubble(slice []int) ([]int, int) {
 		}
 	}
 
-	return slice, iterations
+	return localSlice, iterations
+}
+
+func Shaker(slice []int) ([]int, int) {
+	var iterations = 0
+	var left = 0
+	var right = len(slice) - 1
+	var control = right
+
+	var localSlice = make([]int, len(slice))
+	copy(localSlice, slice)
+
+	for left < right {
+		for i := 0; i < right; i++ {
+			if localSlice[i] > localSlice[i+1] {
+				localSlice[i], localSlice[i+1] = localSlice[i+1], localSlice[i]
+				iterations++
+				control = i
+			}
+		}
+		right = control
+
+		for j := right; j > left; j-- {
+			if localSlice[j] < localSlice[j-1] {
+				localSlice[j], localSlice[j-1] = localSlice[j-1], localSlice[j]
+				iterations++
+				control = j
+			}
+		}
+		left = control
+	}
+
+	return localSlice, iterations
 }
